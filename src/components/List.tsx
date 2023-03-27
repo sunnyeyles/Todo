@@ -1,7 +1,5 @@
-// import {HTMLLIElement} from "react"
 import { MouseEvent } from "react";
-import { ListItem, UnorderedList, List, ListIcon } from "@chakra-ui/react";
-import { CheckIcon, MinusIcon } from "@chakra-ui/icons";
+import { ListItem, UnorderedList } from "@chakra-ui/react";
 import { Todo } from "../types";
 interface Todos {
   todos: Todo[];

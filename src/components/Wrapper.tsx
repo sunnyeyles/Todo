@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent, MouseEvent } from "react";
+import { useState, ChangeEvent, MouseEvent } from "react";
 import styled from "@emotion/styled";
 import TextInput from "./Input";
 import BothButtons from "./Button";
@@ -9,13 +9,12 @@ import { Heading } from "@chakra-ui/react";
 function Wrapper() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
-  const [doubleClicked, setDoubleClicked] = useState<boolean>(false);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setInputValue(event.target.value);
   };
 
-  const handleAddTodo = (event: MouseEvent<HTMLButtonElement>) => {
+  const handleAddTodo = () => {
     const newTodo: Todo = { text: inputValue };
     setTodos([...todos, newTodo]);
     setInputValue("");
