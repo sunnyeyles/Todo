@@ -1,20 +1,21 @@
-import { useState, useEffect, ChangeEvent } from "react";
+import { useState, useEffect, ChangeEvent, MouseEvent } from "react";
 import styled from "@emotion/styled";
-import { Input, List } from "@chakra-ui/react";
 import TextInput from "./Input";
 import BothButtons from "./Button";
 import ListItems from "./List";
 import { Todo } from "../types";
+import { Heading } from "@chakra-ui/react";
 
 function Wrapper() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
+  const [doubleClicked, setDoubleClicked] = useState<boolean>(false);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setInputValue(event.target.value);
   };
 
-  const handleAddTodo = () => {
+  const handleAddTodo = (event: MouseEvent<HTMLButtonElement>) => {
     const newTodo: Todo = { text: inputValue };
     setTodos([...todos, newTodo]);
     setInputValue("");
@@ -22,35 +23,53 @@ function Wrapper() {
   const handleRemoveTodos = () => {
     setTodos([]);
   };
+  const handleDoubleClick = (event: MouseEvent<HTMLLIElement>) => {
+    console.log("clicked");
+  };
 
   return (
     <div>
       <Outline>
-        <TextInput handleChange={handleChange} value={inputValue} />
-        <div
-          style={{
-            display: "flex",
-            gap: "2rem",
-          }}
-        >
-          <BothButtons handleClick={handleAddTodo} buttonText="Add Todo" />
-          <BothButtons
-            handleClick={handleRemoveTodos}
-            buttonText="Delete All"
-          />
+        <Heading sx={{ margin: "1rem", textAlign: "center", color: "teal" }}>
+          Todos
+        </Heading>
+        <InputBar>
+          <TextInput handleChange={handleChange} value={inputValue} />
+          <div
+            style={{
+              display: "flex",
+              gap: "2rem",
+            }}
+          >
+            <BothButtons
+              handleClick={handleRemoveTodos}
+              buttonText="Delete List"
+            />
+            <BothButtons handleClick={handleAddTodo} buttonText="Add Todo" />
+          </div>
+        </InputBar>
+        <div>
+          <ListItems todos={todos} handleOnDoubleClick={handleDoubleClick} />
         </div>
-        <ListItems todos={todos} />
       </Outline>
     </div>
   );
 }
 
 const Outline = styled.div`
-  max-width: 500px;
+  width: 500px;
   margin: 5rem auto;
   border-radius: 0.5rem;
   border: 2px solid teal;
   padding: 2rem;
+`;
+const InputBar = styled.div`
+  border-radius: 0.5rem;
+  border: 0.5px solid teal;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
 `;
 
 export default Wrapper;

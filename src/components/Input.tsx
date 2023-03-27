@@ -9,12 +9,7 @@ interface TextInputProps {
 function TextInput({ handleChange, value }: TextInputProps): JSX.Element {
   return (
     <div>
-      <Input
-        placeholder="Enter Todo"
-        sx={{ width: "80%", marginBottom: "1rem" }}
-        onChange={handleChange}
-        value={value}
-      />
+      <Input placeholder="Enter Todo" onChange={handleChange} value={value} />
     </div>
   );
 }
